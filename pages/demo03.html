@@ -2,28 +2,14 @@
 <html>
 	<head>
 		<title>Ng Include</title>
-		<script type="text/javascript" src="/static/js/angular.js"></script>
-		<script type="text/javascript" src="/static/js/angular-route.js"></script>
+		<script type="text/javascript" src="/static/js/angular.js"></script>		
+		<script type="text/javascript" src="/static/js/angular-animate.js"></script>		
 		<script type="text/javascript" src="/static/js/jquery-3.0.0.js"></script>
 		<link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.css">
 		<script type="text/javascript">
-			angular.module("app",['ngRoute']);
+			angular.module("app",['ngAnimate']);
 			angular.module("app").controller("myctrl",myctrl);
 			angular.module("app").controller("childCtrl",childCtrl);
-
-			angular.module("app").config(routingConfig);
-
-			function routingConfig($routeProvider){
-			
-				$routeProvider.when("/movies",{
-					"templateUrl" : "childPage.html"
-				});
-
-				$routeProvider.otherwise({
-					"templateUrl" : "welcomePage.html"
-				});
-			}
-
 
 			myctrl.$inject = ["$scope"];
 			childCtrl.$inject = ["$scope"];
@@ -53,6 +39,42 @@
 				}
 			}
 		</script>
+		<style type="text/css">
+			.slide-animate-container {
+			  position:relative;
+			  background:white;			  
+			  overflow:hidden;
+			}
+
+			.slide-animate {
+			  padding:0px;
+			}
+
+			.slide-animate.ng-enter, .slide-animate.ng-leave {
+			  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+			  position:absolute;
+			  top:0;
+			  left:0;
+			  right:0;
+			  bottom:0;
+			  display:block;
+			  padding:10px;
+			}
+
+			.slide-animate.ng-enter {
+			  top:-50px;
+			}
+			.slide-animate.ng-enter.ng-enter-active {
+			  top:0;
+			}
+
+			.slide-animate.ng-leave {
+			  top:0;
+			}
+			.slide-animate.ng-leave.ng-leave-active {
+			  top:50px;
+			}
+		</style>
 	</head>
 	<body ng-app="app" ng-controller="myctrl as vm">
 		<div class="container">
