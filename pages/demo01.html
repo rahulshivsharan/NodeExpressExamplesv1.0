@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>First Express</title>
+		<script type="text/javascript" src="/static/js/angular.js"></script>
+		<script type="text/javascript" src="/static/js/jquery-3.0.0.js"></script>
+		<link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.css">
+		<script type="text/javascript">
+			angular.module("app",[]);
+			angular.module("app").controller("myctrl",myctrl);
+			myctrl.$inject = ["$scope"]
+
+			function myctrl($scope){
+				var vm = this;
+				vm.mylibs = ["AngularJS","jQuery","Bootstrap"];
+			}
+		</script>
+	</head>
+	<body ng-app="app" ng-controller="myctrl as vm">
+		<div class="container">
+			<div class="page-header">
+				<h3>First Express App</h3>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<ul>
+						<ol ng-repeat="lib in vm.mylibs">{{lib}}</ol>						
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
