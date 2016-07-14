@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Ng Include</title>
+		<script type="text/javascript" src="/static/js/angular.js"></script>
+		<script type="text/javascript" src="/static/js/angular-route.js"></script>
+		<script type="text/javascript" src="/static/js/jquery-3.0.0.js"></script>
+		<link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.css">
+		<script type="text/javascript">
+			angular.module("app",['ngRoute']);
+			angular.module("app").controller("myctrl",myctrl);
+			angular.module("app").controller("childCtrl",childCtrl);
+
+			angular.module("app").config(routingConfig);
+
+			function routingConfig($routeProvider){
+			
+				$routeProvider.when("/movies",{
+					"templateUrl" : "childPage.html"
+				});
+
+				$routeProvider.otherwise({
+					"templateUrl" : "welcomePage.html"
+				});
+			}
+
+
+			myctrl.$inject = ["$scope"];
+			childCtrl.$inject = ["$scope"];
+
+			function myctrl($scope){
+				var vm = this;
+				vm.title = "NgInclude and nested scoping";
+				vm.actorName = "Amithabh Bachhan";
+				$scope.year = ["70's","80's","90's"];
+			}
+
+			function childCtrl($scope){
+				var vm = this;
+				
+				vm.selectedYear = "";
+				
+				vm.moviesObj = {
+					"70's" : ["Anand","Lawaris","Kala Pathhar","Deewar","Amar Akbar Anthony","Mili"],
+					"80's" : ["Sharabi","Kaalia","Silsila","Satte Pe Satta","Nastik","Shahensha"],
+					"90's" : ["Hum","Aaj Ka Arjun", "Ajooba","Khuda Gawah","Ganga Jamuna Saraswati","Lal Badshah"]
+				}
+				
+				vm.movies = [];
+				
+				vm.getMovies = function(){
+					vm.movies = vm.moviesObj[vm.selectedYear];
+				}
+			}
+		</script>
+	</head>
+	<body ng-app="app" ng-controller="myctrl as vm">
+		<div class="container">
+			<div class="page-header">
+				<h3>{{vm.title}}</h3>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="page-header">
+						<h5>{{vm.actorName}}</h5>						
+					</div>						
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6" ng-controller="childCtrl as vm" 
+				ng-include="'childPage.html'"></div>	
+			</div>
+		</div>
+	</body>
+</html>

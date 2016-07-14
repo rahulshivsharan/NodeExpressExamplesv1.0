@@ -1,0 +1,8 @@
+<select ng-model="vm.selectedYear" data-ng-options="y as y for y in year" 
+	class="form-control" ng-change="vm.getMovies()">
+	<option value="">Select</option>
+</select>
+<br />
+<ol>
+	<li ng-repeat="m in vm.movies">{{m}}</li>
+</ol>
