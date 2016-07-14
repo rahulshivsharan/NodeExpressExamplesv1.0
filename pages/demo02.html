@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Route using Express</title>
+		<script type="text/javascript" src="/static/js/angular.js"></script>
+		<script type="text/javascript" src="/static/js/angular-route.js"></script>
+		<script type="text/javascript" src="/static/js/jquery-3.0.0.js"></script>
+		<link 	rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.css">
+		<script type="text/javascript">
+			angular.module("app",['ngRoute']);
+			angular.module("app").config(routingConfig);
+
+			angular.module("app").controller("myctrl",myctrl);
+			myctrl.$inject = ["$scope","$location"]
+
+			function myctrl($scope,$location){
+				var vm = this;
+				vm.pageHeading = "Routing Express App";
+
+				vm.goto = function(param){
+					$location.url(param);
+				}
+			}
+
+			function routingConfig($routeProvider){
+				
+				$routeProvider.when("/hello",{
+					"templateUrl" : "helloPage.html"
+				});
+
+				$routeProvider.when("/bye",{
+					"templateUrl" : "byePage.html"
+				});
+
+				$routeProvider.otherwise({
+					"templateUrl" : "welcomePage.html"
+				});
+			}
+		</script>
+	</head>
+	<body ng-app="app" ng-controller="myctrl as vm">
+		<div class="container">
+			<div class="page-header">
+				<h3>{{vm.pageHeading}}</h3>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-4">
+							<button type="button" class="btn btn-primary"
+							 ng-click="vm.goto('hello')">Say Hello</button>
+							<button type="button" class="btn btn-primary" 
+							ng-click="vm.goto('bye')">Say Bye</button>
+						</div>
+					</div>
+					<br/>
+					<div class="row">
+						<div class="col-md-8">
+							<ng-view />		
+						</div>
+					</div>					
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
