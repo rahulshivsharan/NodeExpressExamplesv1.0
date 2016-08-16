@@ -1,0 +1,8 @@
+<select ng-model="v.selectedYear" data-ng-options="y as y for y in yearList" 
+	class="form-control" ng-change="v.getMovies()">
+	<option value="">Select</option>
+</select>
+<br />
+<ol class="slide-animate-container">
+	<li class="slide-animate" ng-repeat="m in v.movies">{{m}}</li>
+</ol>
